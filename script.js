@@ -46,11 +46,8 @@
                 //console.log(addedNode);
                 if (addedNode.querySelectorAll) {
                     var tweets = addedNode.querySelectorAll("[data-item-type='tweet']:not(.twictured),.Gallery-content,.permalink-tweet:not(.twictured)");
-                    //tweets = tweets.length > 0 ? tweets : addedNode.dataset;
                     if (tweets.length) {
-                        //console.log(tweets);
                         Array.prototype.slice.call(tweets).forEach(function (tweet) {
-                            //console.log(tweet.classList.contains("Gallery-content"));
                             if (tweet.classList.contains("Gallery-content")) {
                                 var galleryObserver = new MutationObserver(function (mutations) {
                                     mutations.forEach(function (mutation) {
