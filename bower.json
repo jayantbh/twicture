@@ -1,0 +1,16 @@
+{
+  "name": "twicture",
+  "authors": [
+    "Jayant Bhawal"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "bower_components"
+  ],
+  "dependencies": {
+    "html2canvas": "~0.4.1",
+    "FileSaver.js": "~0.0.2",
+    "canvas-toBlob.js": "~0.1.3"
+  }
+}
