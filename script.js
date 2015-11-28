@@ -4,19 +4,29 @@
         subtree: true
     };
 
-    var processAndAddTwictureButton = function (actions, tweety) {
-        var tweet = tweety; //testing
+    var processAndAddTwictureButton = function (actions, tweet) {
 
         var twictureDiv = document.createElement("div");
         twictureDiv.classList.add("twicture_this");
         twictureDiv.classList.add("ProfileTweet-action");
         twictureDiv.innerHTML = '<button class="ProfileTweet-actionButton u-textUserColorHover js-actionButton js-tooltip" title="Twicture this!" data-modal="ProfileTweet-Twicture" type="button"><div class="IconContainer"><span class="Icon Icon--arrowDown"></span><span class="u-hiddenVisually">Twicture</span></div><span style="font-size: 0.8em; padding-left: 4px; vertical-align: 2px;">Twicture</span></button>';
 
+        var promoDiv = document.createElement("div");
+        promoDiv.classList.add("powered_by_twicture");
+        promoDiv.classList.add("ProfileTweet-action");
+        promoDiv.style["width"] = "200px";
+        promoDiv.style["display"] = "none";
+        promoDiv.innerHTML = '<button class="ProfileTweet-actionButton u-textUserColorHover js-actionButton js-tooltip" style="padding: 0;" title="Powered by Twicture!" data-modal="ProfileTweet-Twicture" type="button"><div class="IconContainer"><span class="u-hiddenVisually">Powered by Twicture</span></div><span style="font-size: 0.8em; vertical-align: 2px;">Powered by Twicture</span></button>';
+
         twictureDiv.onclick = function (e) {
             e.preventDefault();
+            document.querySelector(".Gallery-content .ProfileTweet-actionList > div.powered_by_twicture").style["display"] = "inline-block";
+            Array.prototype.slice.call(document.querySelectorAll(".Gallery-content .ProfileTweet-actionList > div:not(.powered_by_twicture)")).forEach(function(el){el.style["display"] = "none";});
             html2canvas(tweet, {
                 onrendered: function (canvas) {
                     tweet.classList.add("twicturing");
+                    Array.prototype.slice.call(document.querySelectorAll(".Gallery-content .ProfileTweet-actionList > div:not(.powered_by_twicture)")).forEach(function(el){el.style["display"] = "inline-block";});
+                    document.querySelector(".Gallery-content .ProfileTweet-actionList > div.powered_by_twicture").style["display"] = "none";
                     canvas.toBlob(function (blob) {
                         saveAs(blob, tweet.id + '.png');
                         tweet.classList.remove("twicturing");
@@ -27,6 +37,7 @@
         };
 
         actions.insertBefore(twictureDiv, actions.childNodes[0]);
+        actions.insertBefore(promoDiv, actions.childNodes[0]);
     };
 
     var observer = new MutationObserver(function (mutations) {
