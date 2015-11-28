@@ -6,7 +6,8 @@ Based on, and referenced from Bhaskar Tiwari's extension, [Download Quora Answer
 
 ToDo:
 
-- Fix image not rendering issue.
-- Fix *Twicture* button not showing on new tweets issue.
-- Fix *Twicture* button not showing on tweets page.
-- Add a nice blue border to the image.
+- [ ] Replace actions list with Twicture message.
+- [x] Fix image not rendering issue.
+- [x] Fix *Twicture* button not showing on new tweets issue.
+- [ ] Fix *Twicture* button not showing on tweets page.
+- [ ] Add a nice blue border to the image.

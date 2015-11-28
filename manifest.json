@@ -1,25 +1,37 @@
 {
-    "manifest_version": 2,
-    "name": "Twicture",
-    "version": "0.8.0",
-    "description": "Share tweets as images.",
-    "icons": {
-        "256": "icons/Twicture.png"
-    },
-    "author": "Jayant Bhawal",
-    "content_scripts": [
-        {
-            "matches": ["*://*.twitter.com/*"],
-            "css": [
-                "style.css"
-            ],
-            "js": [
-                "bower_components/canvas-toBlob.js/canvas-toBlob.js",
-                "bower_components/FileSaver.js/FileSaver.min.js",
-                "bower_components/html2canvas/build/html2canvas.min.js",
-                "script.js"
-            ],
-            "run_at": "document_start"
-        }
+  "manifest_version": 2,
+  "name": "Twicture",
+  "version": "0.8.0",
+  "description": "Share tweets as images.",
+  "icons": {
+    "256": "icons/Twicture.png"
+  },
+  "author": "Jayant Bhawal",
+  "background": {
+    "scripts": [
+      "background.js"
     ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.twitter.com/*"
+      ],
+      "css": [
+        "style.css"
+      ],
+      "js": [
+        "bower_components/canvas-toBlob.js/canvas-toBlob.js",
+        "bower_components/FileSaver.js/FileSaver.min.js",
+        "bower_components/html2canvas/build/html2canvas.min.js",
+        "script.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "*://*.twimg.com/*"
+  ]
 }
