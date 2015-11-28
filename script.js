@@ -4,8 +4,8 @@
         subtree: true
     };
 
-    var processAndAddTwictureButton = function (actions,tweety) {
-        var tweet = tweety;
+    var processAndAddTwictureButton = function (actions, tweety) {
+        var tweet = tweety; //testing
 
         var twictureDiv = document.createElement("div");
         twictureDiv.classList.add("twicture_this");
@@ -26,40 +26,51 @@
             });
         };
 
-        actions.insertBefore(twictureDiv,actions.childNodes[0]);
+        actions.insertBefore(twictureDiv, actions.childNodes[0]);
     };
 
     var observer = new MutationObserver(function (mutations) {
         mutations.forEach(function (mutation) {
             Array.prototype.slice.call(mutation.addedNodes).forEach(function (addedNode) {
+                //console.log(addedNode);
                 if (addedNode.querySelectorAll) {
                     var tweets = addedNode.querySelectorAll("[data-item-type='tweet']:not(.twictured),.Gallery-content,.permalink-tweet:not(.twictured)");
-                    if(tweets.length) {
-                        console.log(tweets);
+                    //tweets = tweets.length > 0 ? tweets : addedNode.dataset;
+                    if (tweets.length) {
+                        //console.log(tweets);
                         Array.prototype.slice.call(tweets).forEach(function (tweet) {
-                            console.log(tweet.classList.contains("Gallery-content"));
-                            if(tweet.classList.contains("Gallery-content")){
+                            //console.log(tweet.classList.contains("Gallery-content"));
+                            if (tweet.classList.contains("Gallery-content")) {
                                 var galleryObserver = new MutationObserver(function (mutations) {
                                     mutations.forEach(function (mutation) {
                                         Array.prototype.slice.call(mutation.addedNodes).forEach(function (addedNode) {
                                             if (addedNode.querySelectorAll) {
                                                 var actions = addedNode.querySelector(".ProfileTweet-actionList");
-                                                if(actions){
-                                                    processAndAddTwictureButton(actions,tweet);
+                                                if (actions && !actions.querySelector(".twicture_this")) {
+                                                    processAndAddTwictureButton(actions, document.querySelector(".Gallery-content"));
                                                 }
                                             }
                                         });
                                     });
                                 });
 
-                                galleryObserver.observe(tweet,observerConfig);
+                                galleryObserver.observe(tweet, observerConfig);
                             }
-                            var actions = tweet.querySelector(".ProfileTweet-actionList");
-                            if(actions){
-                                processAndAddTwictureButton(actions,tweet);
+                            else{
+                                var actions = tweet.querySelector(".ProfileTweet-actionList");
+                                if (actions && !actions.querySelector(".twicture_this")) {
+                                    processAndAddTwictureButton(actions, tweet);
+                                }
                             }
                             tweet.classList.add("twictured");
                         });
+                    }
+                    else if(addedNode.dataset.itemType == "tweet"){
+                        var actions = addedNode.querySelector(".ProfileTweet-actionList");
+                        if (actions && !actions.querySelector(".twicture_this")) {
+                            processAndAddTwictureButton(actions, addedNode);
+                            addedNode.classList.add("twictured");
+                        }
                     }
                 }
             });

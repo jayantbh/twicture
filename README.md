@@ -9,5 +9,5 @@ ToDo:
 - [ ] Replace actions list with Twicture message.
 - [x] Fix image not rendering issue.
 - [x] Fix *Twicture* button not showing on new tweets issue.
-- [ ] Fix *Twicture* button not showing on tweets page.
+- [x] Fix *Twicture* button not showing on tweets page.
 - [ ] Add a nice blue border to the image.
