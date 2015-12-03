@@ -18,15 +18,22 @@
         promoDiv.style["display"] = "none";
         promoDiv.innerHTML = '<button class="ProfileTweet-actionButton u-textUserColorHover js-actionButton js-tooltip" style="padding: 0;" title="Powered by Twicture!" data-modal="ProfileTweet-Twicture" type="button"><div class="IconContainer"><span class="u-hiddenVisually">Powered by Twicture</span></div><span style="font-size: 0.8em; vertical-align: 2px;">Powered by Twicture</span></button>';
 
+        var powered_in_gallery_selector = ".ProfileTweet-actionList > div.powered_by_twicture",
+            not_powered_in_gallery_selector = ".ProfileTweet-actionList > div:not(.powered_by_twicture)";
+
         twictureDiv.onclick = function (e) {
             e.preventDefault();
-            document.querySelector(".Gallery-content .ProfileTweet-actionList > div.powered_by_twicture").style["display"] = "inline-block";
-            Array.prototype.slice.call(document.querySelectorAll(".Gallery-content .ProfileTweet-actionList > div:not(.powered_by_twicture)")).forEach(function(el){el.style["display"] = "none";});
+            tweet.querySelector(powered_in_gallery_selector).style["display"] = "inline-block";
+            Array.prototype.slice.call(tweet.querySelectorAll(not_powered_in_gallery_selector)).forEach(function (el) {
+                el.style["display"] = "none";
+            });
             html2canvas(tweet, {
                 onrendered: function (canvas) {
                     tweet.classList.add("twicturing");
-                    Array.prototype.slice.call(document.querySelectorAll(".Gallery-content .ProfileTweet-actionList > div:not(.powered_by_twicture)")).forEach(function(el){el.style["display"] = "inline-block";});
-                    document.querySelector(".Gallery-content .ProfileTweet-actionList > div.powered_by_twicture").style["display"] = "none";
+                    Array.prototype.slice.call(tweet.querySelectorAll(not_powered_in_gallery_selector)).forEach(function (el) {
+                        el.style["display"] = "inline-block";
+                    });
+                    tweet.querySelector(powered_in_gallery_selector).style["display"] = "none";
                     canvas.toBlob(function (blob) {
                         saveAs(blob, tweet.id + '.png');
                         tweet.classList.remove("twicturing");
@@ -64,7 +71,7 @@
 
                                 galleryObserver.observe(tweet, observerConfig);
                             }
-                            else{
+                            else {
                                 var actions = tweet.querySelector(".ProfileTweet-actionList");
                                 if (actions && !actions.querySelector(".twicture_this")) {
                                     processAndAddTwictureButton(actions, tweet);
@@ -73,7 +80,7 @@
                             tweet.classList.add("twictured");
                         });
                     }
-                    else if(addedNode.dataset.itemType == "tweet"){
+                    else if (addedNode.dataset.itemType == "tweet") {
                         var actions = addedNode.querySelector(".ProfileTweet-actionList");
                         if (actions && !actions.querySelector(".twicture_this")) {
                             processAndAddTwictureButton(actions, addedNode);
