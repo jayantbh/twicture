@@ -6,6 +6,8 @@
 
     var processAndAddTwictureButton = function (actions, tweet) {
 
+        var scaleFactor = 2;
+
         var twictureDiv = document.createElement("div");
         twictureDiv.classList.add("twicture_this");
         twictureDiv.classList.add("ProfileTweet-action");
@@ -19,22 +21,22 @@
         promoDiv.innerHTML = '<button class="ProfileTweet-actionButton u-textUserColorHover js-actionButton js-tooltip" style="padding: 0;" title="Powered by Twicture!" data-modal="ProfileTweet-Twicture" type="button"><div class="IconContainer"><span class="u-hiddenVisually">Powered by Twicture</span></div><span style="font-size: 0.8em; vertical-align: 2px;">Powered by Twicture</span></button>';
 
         var powered_in_gallery_selector = ".ProfileTweet-actionList > div.powered_by_twicture",
-            not_powered_in_gallery_selector = ".ProfileTweet-actionList > div:not(.powered_by_twicture)";
+            temporarily_hidden_selector = ".ProfileTweet-actionList > div:not(.powered_by_twicture), iframe";
 
         twictureDiv.onclick = function (e) {
             e.preventDefault();
             tweet.querySelector(powered_in_gallery_selector).style["display"] = "inline-block";
-            Array.prototype.slice.call(tweet.querySelectorAll(not_powered_in_gallery_selector)).forEach(function (el) {
+            Array.prototype.slice.call(tweet.querySelectorAll(temporarily_hidden_selector)).forEach(function (el) {
                 el.style["display"] = "none";
             });
             html2canvas(tweet, {
                 onrendered: function (canvas) {
                     tweet.classList.add("twicturing");
-                    Array.prototype.slice.call(tweet.querySelectorAll(not_powered_in_gallery_selector)).forEach(function (el) {
+                    Array.prototype.slice.call(tweet.querySelectorAll(temporarily_hidden_selector)).forEach(function (el) {
                         el.style["display"] = "inline-block";
                     });
                     tweet.querySelector(powered_in_gallery_selector).style["display"] = "none";
-                    canvas.toBlob(function (blob) {
+                    canvas.toBlobHD(function (blob) {
                         saveAs(blob, tweet.id + '.png');
                         tweet.classList.remove("twicturing");
                     }, 'image/png', 1);

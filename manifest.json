@@ -17,9 +17,6 @@
       "matches": [
         "*://*.twitter.com/*"
       ],
-      "css": [
-        "style.css"
-      ],
       "js": [
         "bower_components/canvas-toBlob.js/canvas-toBlob.js",
         "bower_components/FileSaver.js/FileSaver.min.js",
